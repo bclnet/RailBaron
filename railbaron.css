@@ -1,0 +1,81 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * RailBaron implementation : © <Your name here> <Your email address here>
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ *
+ * railbaron.css
+ *
+ * RailBaron stylesheet
+ *
+ */
+
+/********* You can start writing your CSS below this line: **********/
+
+#board {
+    width: 1200px;
+    height: 583px;
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+    background-image: url('img/board.webp');
+    position: relative;
+}
+
+.rail {
+    width: 74px;
+    height: 52px;
+    position: absolute;
+    background-color: transparent;
+    opacity: 0.1;
+    /* For IE8 and earlier : #white */
+    filter: alpha(opacity=10);
+}
+
+.city {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    background-color: black;
+    cursor: pointer;
+    opacity: 0.7;
+    /* For IE8 and earlier */
+    filter: alpha(opacity=70);
+}
+.city span {
+    margin-left: 1.2em;
+    font-size: .5em;
+    font-weight: bolder;
+}
+
+.stop {
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    background-color: red;
+    cursor: pointer;
+    opacity: 0.4;
+    /* For IE8 and earlier */
+    filter: alpha(opacity=90);
+}
+
+.token {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background-image: url('img/tokens.png');
+}
+.token_p_ff0000 { background-position: 0px 0px; }
+.token_p_008000 { background-position: -25px 0px; }
+.token_p_0000ff { background-position: -50px 0px; }
+.token_p_ffa500 { background-position: -75px 0px; }
+.token_p_773300 { background-position: -100px 0px; }
+.token_p_000001 { background-position: -125px 0px; }
+.token_d_ff0000 { background-position: 0px -25px; }
+.token_d_008000 { background-position: -25px -25px; }
+.token_d_0000ff { background-position: -50px -25px; }
+.token_d_ffa500 { background-position: -75px -25px; }
+.token_d_773300 { background-position: -100px -25px; }
+.token_d_000001 { background-position: -125px -25px; }
