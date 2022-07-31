@@ -28,7 +28,6 @@ define([
                 // Here, you can init the global variables of your user interface
                 // Example:
                 // this.myGlobalValue = 0;
-
             },
 
             /*
@@ -55,9 +54,9 @@ define([
                 }
 
                 // TODO: Set up your game interface here, according to "gamedatas"
-                this.addTokenOnBoard('p', 'Chicago', this.player_id);
-                this.addTokenOnBoard('f', 'Kansas City', this.player_id);
-                this.addTokenOnBoard('t', 'Seattle', this.player_id);
+                // this.addTokenOnBoard('p', 'Chicago', this.player_id);
+                // this.addTokenOnBoard('f', 'Kansas City', this.player_id);
+                // this.addTokenOnBoard('t', 'Seattle', this.player_id);
 
                 // Setup game notifications to handle (see "setupNotifications" method below)
                 this.setupNotifications();

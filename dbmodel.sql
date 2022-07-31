@@ -9,9 +9,14 @@
 
 -- dbmodel.sql
 
-CREATE TABLE IF NOT EXISTS `board` (
-  `board_x` smallint(5) unsigned NOT NULL,
-  `board_y` smallint(5) unsigned NOT NULL,
-  `board_player` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`board_x`,`board_y`)
+ALTER TABLE `player`
+  ADD `player_cash` int(10) unsigned NOT NULL DEFAULT 20000,
+  ADD `player_city` varchar(30) DEFAULT NULL,
+  ADD `player_location` varchar(30) DEFAULT NULL,
+  ADD `player_engine` varchar(10) DEFAULT 'Normal';
+
+CREATE TABLE IF NOT EXISTS `rail` (
+  `rail_id` varchar(8) NOT NULL,
+  `rail_player` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`rail_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

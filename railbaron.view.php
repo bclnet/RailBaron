@@ -33,6 +33,8 @@ class view_railbaron_railbaron extends game_view
   {
     return "railbaron";
   }
+
+
   function build_page($viewArgs)
   {
     // Get players & players number
@@ -41,11 +43,19 @@ class view_railbaron_railbaron extends game_view
 
     /*********** Place your code below:  ************/
 
-    $this->tpl['VAR_CASH'] = 'cash';
+    $boardId = $this->game->getBoardId();
 
+    // $current_player_id = $this->game->getCurrentPlayerId(); 
+    $this->tpl['BOARDID'] = $boardId;
+    $this->tpl['VAR_CASH'] = 'cash';
+    $this->tpl['VAR_CITY'] = 'city';
+    $this->tpl['VAR_LOCATION'] = 'location';
+    $this->tpl['VAR_ENGINE'] = 'engine';
+
+    $board = $this->game->boards[$boardId];
     // RAIL
     $this->page->begin_block("railbaron_railbaron", "rail");
-    foreach ($this->game->data_rails as $key => $value) {
+    foreach ($board[0] as $key => $value) {
       $this->page->insert_block("rail", array(
         'X' => $key,
         'TITLE' => $value['name'],
@@ -56,7 +66,7 @@ class view_railbaron_railbaron extends game_view
 
     // STOP
     $this->page->begin_block("railbaron_railbaron", "stop");
-    foreach ($this->game->data_rails as $key2 => $value2) {
+    foreach ($board[0] as $key2 => $value2) {
       foreach ($value2['stops'] as $key => $value) {
         if ($key[0] == "#") continue;
         $this->page->insert_block("stop", array(
@@ -69,7 +79,7 @@ class view_railbaron_railbaron extends game_view
 
     // CITES
     $this->page->begin_block("railbaron_railbaron", "city");
-    foreach ($this->game->data_cities as $key => $value) {
+    foreach ($board[1] as $key => $value) {
       $this->page->insert_block("city", array(
         'X' => $key,
         'TITLE' => $key,

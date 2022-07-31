@@ -1,3 +1,12 @@
 https://boardgamegeek.com/boardgame/420/rail-baron
 https://www.railgamefans.com/rbp/
 https://www.railgamefans.com/rbp/rbrules.htm
+
+
+1 - gameSetup
+2 - playerSetupCity
+
+playerTurn
+nextPlayer
+
+99 - gameEnd

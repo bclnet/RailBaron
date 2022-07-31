@@ -15,15 +15,26 @@
 
 /********* You can start writing your CSS below this line: **********/
 
-#board {
+/* BOARDS */
+.board_A {
     width: 1200px;
     height: 583px;
     margin-top: 1.5em;
     margin-left: 1.5em;
-    background-image: url('img/board.webp');
+    background-image: url('img/board_A.webp');
     position: relative;
 }
 
+.board_NBR {
+    width: 1430px;
+    height: 953px;
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+    background-image: url('img/board_NBR.png');
+    position: relative;
+}
+
+/* RAILS + CITIES + STOPS */
 .rail {
     width: 74px;
     height: 52px;
@@ -33,16 +44,23 @@
     /* For IE8 and earlier : #white */
     filter: alpha(opacity=10);
 }
+.rail_L1 {
+}
+.rail_B1 {
+}
+.rail_R1 {
+}
 
 .city {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
+    margin: -4px;
     position: absolute;
-    background-color: black;
+    background-color: red;
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.6;
     /* For IE8 and earlier */
-    filter: alpha(opacity=70);
+    filter: alpha(opacity=60);
 }
 .city span {
     margin-left: 1.2em;
@@ -51,16 +69,19 @@
 }
 
 .stop {
-    width: 5px;
-    height: 5px;
+    width: 13px;
+    height: 13px;
+    margin: -6px;
+    border-radius: 50%;
     position: absolute;
-    background-color: red;
+    background-color: blue;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.2;
     /* For IE8 and earlier */
-    filter: alpha(opacity=90);
+    filter: alpha(opacity=20);
 }
 
+/* TOKENS */
 .token {
     width: 25px;
     height: 25px;

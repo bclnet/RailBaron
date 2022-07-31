@@ -10,7 +10,7 @@
 -------
 -->
 
-<div id="board">
+<div id="board" class="board_{BOARDID}">
     <!-- BEGIN rail -->
         <div id="rail_{X}" class="rail" title="{TITLE}" style="left: {LEFT}px; top: {TOP}px;"></div>
     <!-- END rail -->
@@ -24,7 +24,15 @@
     <div id="tokens">
     </div>
 </div>
-{VAR_CASH}
+board: {BOARDID}<br />
+cash: {VAR_CASH}<br />
+city: {VAR_CITY}<br />
+loc: {VAR_LOCATION}<br />
+eng: {VAR_ENGINE}<br />
+
+<textarea>
+AREA
+</textarea>
 
 <script type="text/javascript">
 // Templates

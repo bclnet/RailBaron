@@ -28,19 +28,23 @@ class RailBaron extends Table
         parent::__construct();
 
         self::initGameStateLabels(array(
-            //    "my_first_global_variable" => 10,
-            //    "my_second_global_variable" => 11,
-            //      ...
-            //    "my_first_game_variant" => 100,
-            //    "my_second_game_variant" => 101,
-            //      ...
+            "testing" => 10,
+            "game_board" => 100,
         ));
     }
 
     protected function getGameName()
     {
-        // Used for translations and stuff. Please do not modify.
-        return "railbaron";
+        return "railbaron"; // Used for translations and stuff. Please do not modify.
+    }
+
+    public function getBoardId()
+    {
+        switch ($this->getGameStateValue('game_board')) {
+            case 1: return 'A';
+            case 2: return 'NBR';
+            default: throw new feException('Unknown game_board');
+        }
     }
 
     /*
@@ -53,8 +57,6 @@ class RailBaron extends Table
     protected function setupNewGame($players, $options = array())
     {
         // Set the colors of the players with HTML color code
-        // The default below is red/green/blue/orange/brown
-        // The number of colors defined here must correspond to the maximum number of players allowed for the gams
         $gameinfos = self::getGameinfos();
         $default_colors = $gameinfos['player_colors'];
 
@@ -74,17 +76,28 @@ class RailBaron extends Table
         /************ Start the game initialization *****/
 
         // Init global values with their initial values
-        //self::setGameStateInitialValue( 'my_first_global_variable', 0 );
+        self::setGameStateInitialValue('testing', 0);
 
         // Init game statistics
         // (note: statistics used in this file must be defined in your stats.inc.php file)
-        //self::initStat( 'table', 'table_teststat1', 0 );    // Init a table statistics
-        //self::initStat( 'player', 'player_teststat1', 0 );  // Init a player statistics (for all players)
+        //self::initStat('table', 'table_teststat1', 0);    // Init a table statistics
+        //self::initStat('player', 'player_teststat1', 0);  // Init a player statistics (for all players)
 
         // TODO: setup the initial game situation here
 
+        $this->boardId = $this->getBoardId();
 
-        // Activate first player (which is in general a good idea :) )
+        // Init rail
+        $sql = "INSERT INTO rail (rail_id,rail_player) VALUES ";
+        $sql_values = array();
+        $board = $this->boards[$this->boardId];
+        foreach ($board[0] as $key => $value) {
+            $sql_values[] = "('$key',NULL)";
+        }
+        $sql .= implode(',', $sql_values);
+        self::DbQuery($sql);
+
+        // Activate first player (which is in general a good idea )
         $this->activeNextPlayer();
 
         /************ End of the game initialization *****/
@@ -107,10 +120,13 @@ class RailBaron extends Table
 
         // Get information about players
         // Note: you can retrieve some extra field you added for "player" table in "dbmodel.sql" if you need it.
-        $sql = "SELECT player_id id, player_score score FROM player ";
+        $sql = "SELECT player_id id, player_score score FROM player";
         $result['players'] = self::getCollectionFromDb($sql);
 
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
+
+        // Get rails
+        $result['rails'] = self::getObjectListFromDB("SELECT rail_id id, rail_player player FROM rail WHERE rail_player IS NOT NULL");
 
         return $result;
     }
@@ -128,7 +144,6 @@ class RailBaron extends Table
     function getGameProgression()
     {
         // TODO: compute and return the game progression
-
         return 0;
     }
 
@@ -140,8 +155,6 @@ class RailBaron extends Table
     /*
         In this space, you can put any utility methods useful for your game logic
     */
-
-
 
     //////////////////////////////////////////////////////////////////////////////
     //////////// Player actions
@@ -156,7 +169,7 @@ class RailBaron extends Table
     
     Example:
 
-    function playCard( $card_id )
+    function playCard($card_id)
     {
         // Check that this is the player's turn and that it is a "possible action" at this game state (see states.inc.php)
         self::checkAction( 'playCard' ); 
@@ -255,14 +268,12 @@ class RailBaron extends Table
                     $this->gamestate->nextState("zombiePass");
                     break;
             }
-
             return;
         }
 
         if ($state['type'] === "multipleactiveplayer") {
             // Make sure player is in a non blocking status for role turn
             $this->gamestate->setPlayerNonMultiactive($active_player, '');
-
             return;
         }
 
@@ -281,34 +292,20 @@ class RailBaron extends Table
         Database scheme.
         In this case, if you change your Database scheme, you just have to apply the needed changes in order to
         update the game database and allow the game to continue to run with your new version.
-    
     */
 
     function upgradeTableDb($from_version)
     {
-        // $from_version is the current version of this game database, in numerical form.
-        // For example, if the game was running with a release of your game named "140430-1345",
-        // $from_version is equal to 1404301345
-
-        // Example:
-        //        if( $from_version <= 1404301345 )
-        //        {
-        //            // ! important ! Use DBPREFIX_<table_name> for all tables
-        //
-        //            $sql = "ALTER TABLE DBPREFIX_xxxxxxx ....";
-        //            self::applyDbUpgradeToAllDB( $sql );
-        //        }
-        //        if( $from_version <= 1405061421 )
-        //        {
-        //            // ! important ! Use DBPREFIX_<table_name> for all tables
-        //
-        //            $sql = "CREATE TABLE DBPREFIX_xxxxxxx ....";
-        //            self::applyDbUpgradeToAllDB( $sql );
-        //        }
-        //        // Please add your future database scheme changes here
-        //
-        //
-
-
+        // if ($from_version <= 1404301345) {
+        //     // ! important ! Use DBPREFIX_<table_name> for all tables
+        //     $sql = "ALTER TABLE DBPREFIX_xxxxxxx ....";
+        //     self::applyDbUpgradeToAllDB($sql);
+        // }
+        // if ($from_version <= 1405061421) {
+        //     // ! important ! Use DBPREFIX_<table_name> for all tables
+        //     $sql = "CREATE TABLE DBPREFIX_xxxxxxx ....";
+        //     self::applyDbUpgradeToAllDB($sql);
+        // }
+        // // Please add your future database scheme changes here
     }
 }
