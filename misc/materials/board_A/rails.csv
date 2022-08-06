@@ -1,0 +1,29 @@
+id,posX,posY,type,name,amount
+GN,10,100,L1,Great Northern,17000
+NP,10,165,L1,Northern Pacific,14000
+SLSF,10,232,L1,St. Louis and San Francisco,19000
+WP,10,287,L1,Western Pacific,8000
+UP,10,340,L1,Union Pacific,40000
+CRI+P,10,397,L1,"Chicago, Rock Island, and Pacific",29000
+D+RGW,10,456,L1,Denver and Rio Grande Western,6000
+SP,10,522,L1,Southern Pacific,42000
+GM+O,92,522,L1,"Gulf, Mobile, and Ohio",12000
+N+W,158,522,L1,Norfolk and Western,12000
+CMStP+P,236,522,L1,"Chicago, Milwaukee, St. Paul, and Pacific",18000
+T+P,317,522,L1,Texas and Pacific,10000
+L+N,399,522,L1,Louisville and Nashville,18000
+C+NW,463,522,L1,Chicago and NorthWestern RR,14000
+AT+SF,520,522,L1,"Atchison, Topeka, and Santa Fe RR",40000
+MP,712,522,L1,Missouri Pacific,21000
+IC,800,522,L1,Illinois Central RR,14000
+CB+Q,880,522,L1,"Chicago, Burlington, and Quincy",20000
+RF+P,950,522,L1,"Richmond, Fredericksburg, and Potomac RR",4000
+SAL,1014,522,L1,Seaboard Airline RR,14000
+SOU,1115,522,L1,Southern Railway,20000
+ACL,1115,453,L1,Atlantic Coast Line,12000
+C+O,1115,400,L1,Chesapeake and Ohio,20000
+B+O,1115,336,L1,Baltimore and Ohio,24000
+NYNH+H,1115,266,L1,"New York, New Haven, and Hartford RR",4000
+B+M,1115,191,L1,Boston and Maine RR,4000
+PA,1115,133,L1,Pennsylvania RR,30000
+NYC,1115,88,L1,New York Central,28000

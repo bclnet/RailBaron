@@ -28,8 +28,8 @@ $game_options = array(
     100 => array(
         'name' => totranslate('game board'),
         'values' => array(
-            1 => array('name' => totranslate('Board A')),
-            2 => array('name' => totranslate('Board NBR'), 'tmdisplay' => totranslate('option 2')),
+            1 => array('name' => totranslate('Standard Board')),
+            2 => array('name' => totranslate('Nothing But Rails')),
         ),
         'default' => 1
     ),

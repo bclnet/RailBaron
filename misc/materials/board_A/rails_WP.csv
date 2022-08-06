@@ -1,0 +1,16 @@
+id,posX,posY
+/ A-line,,
+#Sacramento,,
+A1,129,190
+A2,155,182
+#Reno,,
+A3,194,176
+A4,228,189
+A5,266,188
+A6,299,202
+#Salt Lake City,,
+/ B-line,,
+B1,138,155
+B2,137,176
+/ C-line,,
+C1,133,232

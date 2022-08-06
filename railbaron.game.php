@@ -13,10 +13,45 @@
  *
  */
 
+$swdNamespaceAutoload = function ($class) {
+    $classParts = explode('\\', $class);
+    if ($classParts[0] == 'RB') {
+        array_shift($classParts);
+        $file = dirname(__FILE__) . '/modules/php/' . implode(DIRECTORY_SEPARATOR, $classParts) . '.php';
+        if (file_exists($file)) {
+            require_once $file;
+        } else {
+            var_dump('Cannot find file : ' . $file);
+        }
+    }
+};
+spl_autoload_register($swdNamespaceAutoload, true, true);
+
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
+
+use RB\Core\Actions;
+use RB\Core\Globals;
+use RB\Core\Preferences;
+use RB\Core\Stats;
+use RB\Managers\Cards;
+use RB\Managers\Players;
+use RB\Managers\Tokens;
 
 class RailBaron extends Table
 {
+    // use RB\DebugTrait;
+    // use RB\States\NextPlayerTrait;
+    // use RB\States\MovementTrait;
+    // use RB\States\FieldBattleTrait;
+    // use RB\States\InterceptionTrait;
+    // use RB\States\AvoidBattleTrait;
+    // use RB\States\WithdrawBattleTrait;
+    // use RB\States\BuyTrait;
+    // use RB\States\ImpulseActionsTrait;
+    // use RB\SetupTrait;
+    // use RB\AdditionalStaticTrait;
+
+    public static $instance = null;
     function __construct()
     {
         // Your global variables labels:
@@ -26,81 +61,75 @@ class RailBaron extends Table
         //  the corresponding ID in gameoptions.inc.php.
         // Note: afterwards, you can get/set the global variables with getGameStateValue/setGameStateInitialValue/setGameStateValue
         parent::__construct();
-
+        self::$instance = $this;
         self::initGameStateLabels(array(
-            "testing" => 10,
+            "logging" => 10,
             "game_board" => 100,
         ));
     }
 
-    protected function getGameName()
+    public static function get()
     {
-        return "railbaron"; // Used for translations and stuff. Please do not modify.
+        return self::$instance;
     }
 
+    protected function getGameName()
+    {
+        return "railbaron";
+    }
+
+    public function getStateName()
+    {
+        $state = $this->gamestate->state();
+        return $state['name'];
+    }
+
+    // TODO:MOVE
     public function getBoardId()
     {
         switch ($this->getGameStateValue('game_board')) {
-            case 1: return 'A';
-            case 2: return 'NBR';
-            default: throw new feException('Unknown game_board');
+            case 1:
+                return 'A';
+            case 2:
+                return 'NBR';
+            default:
+                throw new feException('Unknown game_board');
         }
     }
 
     /*
         setupNewGame:
-        
-        This method is called only once, when a new game is launched.
-        In this method, you must setup the game according to the game rules, so that
-        the game is ready to be played.
     */
     protected function setupNewGame($players, $options = array())
     {
-        // Set the colors of the players with HTML color code
-        $gameinfos = self::getGameinfos();
-        $default_colors = $gameinfos['player_colors'];
-
-        // Create players
-        // Note: if you added some extra field on "player" table in the database (dbmodel.sql), you can initialize it there.
-        $sql = "INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ";
-        $values = array();
-        foreach ($players as $player_id => $player) {
-            $color = array_shift($default_colors);
-            $values[] = "('" . $player_id . "','$color','" . $player['player_canal'] . "','" . addslashes($player['player_name']) . "','" . addslashes($player['player_avatar']) . "')";
-        }
-        $sql .= implode($values, ',');
-        self::DbQuery($sql);
-        self::reattributeColorsBasedOnPreferences($players, $gameinfos['player_colors']);
-        self::reloadPlayersBasicInfos();
-
-        /************ Start the game initialization *****/
-
+        Globals::setupNewGame($players, $options);
+        Preferences::setupNewGame($players, $options);
+        Players::setupNewGame($players, $options);
+        Stats::setupNewGame($players, $options);
+        Tokens::setupNewGame($players, $options);
+        Cards::setupNewGame($players, $options);
         // Init global values with their initial values
-        self::setGameStateInitialValue('testing', 0);
-
-        // Init game statistics
-        // (note: statistics used in this file must be defined in your stats.inc.php file)
-        //self::initStat('table', 'table_teststat1', 0);    // Init a table statistics
-        //self::initStat('player', 'player_teststat1', 0);  // Init a player statistics (for all players)
-
-        // TODO: setup the initial game situation here
-
-        $this->boardId = $this->getBoardId();
-
-        // Init rail
-        $sql = "INSERT INTO rail (rail_id,rail_player) VALUES ";
-        $sql_values = array();
-        $board = $this->boards[$this->boardId];
-        foreach ($board[0] as $key => $value) {
-            $sql_values[] = "('$key',NULL)";
-        }
-        $sql .= implode(',', $sql_values);
-        self::DbQuery($sql);
-
-        // Activate first player (which is in general a good idea )
+        // self::setGameStateInitialValue('logging', 0);
         $this->activeNextPlayer();
+    }
 
-        /************ End of the game initialization *****/
+    function initTables()
+    {
+        $options = [];
+        try {
+            $players = $this->loadPlayersBasicInfos();
+            Globals::setupNewGame($players, $options);
+            Preferences::setupNewGame($players, $options);
+            Players::setupNewGame($players, $options);
+            Tokens::setupNewGame($players, $options);
+            Cards::setupNewGame($players, $options);
+        } catch (Exception $e) {
+            // logging does not actually work in game init :(
+            // but if your calling from php chat it will work
+            self::dump("======EXCEPTION======", $e);
+            self::error("Fatal error while creating game");
+            var_dump($e);
+        }
     }
 
     /*

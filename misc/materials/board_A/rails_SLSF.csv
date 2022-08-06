@@ -1,0 +1,28 @@
+id,posX,posY,,
+/ A-line,,,,
+#Kansas City,,,,
+A1,692,268,#Kansas City,A2
+A2,704,286,A1,A3
+A3,731,290,A2,A4
+A4,755,291,A3,A5
+A5,773,304,A4,A6
+A6,791,312,A5,A7
+#Memphis,,,,
+A7,841,348,#Memphis,A8
+A8,865,356,A7,#Birmingham
+#Birmingham,,,,
+/ B-line,,,,
+#St. Louis,,,,
+B1,772,264,#St. Louis,B2
+B2,751,273,B1,B3
+B3,713,303,,
+B4,714,329,,
+B5,703,354,,
+B6,688,376,,
+B7,685,397,,
+#Dallas,,,,
+#Fort Worth,,,,
+/ C-line,,,,
+C1,686,314,B3,C2
+C2,668,333,B1,#Oklahoma City
+#Oklahoma City,,,,

@@ -1,0 +1,67 @@
+id,posX,posY,type
+Albany,1073,62,NE
+Atlanta,944,341,SE
+Baltimore,1054,166,NE
+Billings,401,91,NW
+Birmingham,890,360,SC
+Boston,1123,57,NE
+Buffalo,981,87,NE
+Butte,325,72,NW
+Casper,445,164,NW
+Charleston,1052,347,SE
+Charlotte,1010,291,SE
+Chattanooga,918,315,SE
+Chicago,820,157,NC
+Cincinnati,904,209,NC
+Cleveland,942,134,NC
+Columbus,928,182,NC
+Dallas,668,414,SC
+Denver,471,245,PL
+Des Moines,704,180,PL
+Detroit,905,117,NC
+El Paso,438,446,SW
+Fargo,625,50,PL
+Fort Worth,648,417,SC
+Houston,708,487,SC
+Indianapolis,864,200,NC
+Jacksonville,1030,411,SE
+Kansas City,692,250,PL
+Knoxville,939,288,SE
+Las Vegas,249,307,SW
+Little Rock,764,348,SC
+Los Angeles,175,347,SW
+Louisville,884,242,SC
+Memphis,812,333,SC
+Miami,1098,506,SE
+Milwaukee,804,123,NC
+Minneapolis,702,93,PL
+Mobile,875,431,SE
+Nashville,876,294,SC
+New Orleans,833,463,SC
+New York,1090,114,NE
+Norfolk,1090,230,SE
+Oklahoma City,645,347,PL
+Omaha,659,195,PL
+Philadelphia,1079,142,NE
+Phoenix,313,391,SW
+Pittsburgh,982,158,NE
+Pocatello,315,150,NW
+Portland ME,1123,18,NE
+Portland OR,122,45,NW
+Pueblo,478,279,PL
+Rapid City,508,135,NW
+Reno,161,199,SW
+Richmond,1058,215,SE
+Sacramento,126,211,SW
+Salt Lake City,326,207,NW
+San Antonio,633,505,SC
+San Diego,194,381,SW
+San Francisco/Oakland,108,233,SW
+Seattle,148,8,NW
+Shreveport,740,410,SC
+Spokane,241,20,NW
+St. Louis,789,244,NC
+#St. Paul,702,93,PL
+Tampa,1030,471,SE
+Tucumcari,498,362,SW
+Washington DC,1052,184,NE
